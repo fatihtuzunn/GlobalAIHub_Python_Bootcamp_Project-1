@@ -1,3 +1,4 @@
+import pandas as pd
 
 
 class student():
@@ -29,10 +30,9 @@ class student():
     def learnStatus(self):
         if self.status:
             print(f"Tebrikler {letterscore} notu ile geçtiniz.")
-            
+
         else:
             print(f"Malesef {letterscore} notu ile kaldınız.")
-            
 
 
 studentList = []
@@ -42,19 +42,25 @@ n = int(input("How many student data will u enter?: "))
 
 # girilecek elemente göre objecti listeye ekliyoruz
 for i in range(0, n):
+    print(f"\n Girdi {i+1} \n" )
     newName = input("İsminiz: ")
     newSurname = input("Soyisminiz: ")
     newNumber = int(input("Okul numaranız: "))
     newScore = int(input("Sınav notunuz: "))
 
-    studentList.append(student(newName, newSurname, newNumber, newScore))  # adding the element
-
-
-
+    # adding the element
+    studentList.append(student(newName, newSurname, newNumber, newScore))
 
 
 for obj in studentList:
-    print(obj.name, obj.surname, obj.status, sep=' - ')
+    #print(dir(obj.__dict__))
+    #print(obj.__getattribute__("name"))  
+    #print(type(obj))
+    
+    df=pd.DataFrame(obj.__dict__.items())    
+
+    print(df)
+
 
 
 
