@@ -2,6 +2,10 @@ import pandas as pd
 
 
 class student():
+    
+  
+        
+    
     def __init__(self, name, surname, number, score):
         self.name = name
         self.surname = surname
@@ -38,11 +42,11 @@ class student():
 studentList = []
 
 # girilecek element sayisi
-n = int(input("How many student data will u enter?: "))
+n = int(input("Kaç öğrenci gireceksiniz?: "))
 
 # girilecek elemente göre objecti listeye ekliyoruz
 for i in range(0, n):
-    print(f"\n Girdi {i+1} \n" )
+    print(f"\n Girdi {i+1} \n")
     newName = input("İsminiz: ")
     newSurname = input("Soyisminiz: ")
     newNumber = int(input("Okul numaranız: "))
@@ -52,15 +56,29 @@ for i in range(0, n):
     studentList.append(student(newName, newSurname, newNumber, newScore))
 
 
+""" 
 for obj in studentList:
-    #print(dir(obj.__dict__))
-    #print(obj.__getattribute__("name"))  
-    #print(type(obj))
+    # print(dir(obj.__dict__))
+    # print(obj.__getattribute__("name"))
+    # print(type(obj))
+
+    df = pd.DataFrame([obj.__dict__])
     
-    df=pd.DataFrame(obj.__dict__.items())    
-
+    #df_final = pd.DataFrame.from_dict([dict(df[[0, 1]].to_numpy())])
     print(df)
+"""
 
 
+""" 
+def dataf():
+    for obj in studentList:
+        data = [obj.__dict__]
+        index="Student "+ str(obj)
+        columns=obj.__dict__.keys()
+df = pd.DataFrame(dataf())
+"""
 
 
+df = pd.DataFrame(obj.__dict__ for obj in studentList)
+
+print(df)
