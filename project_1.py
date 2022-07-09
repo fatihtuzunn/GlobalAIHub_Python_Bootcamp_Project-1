@@ -1,4 +1,6 @@
 import pandas as pd
+import openpyxl
+
 
 
 class student():
@@ -11,28 +13,32 @@ class student():
         self.findStatus()
         
     def findStatus(self):
-        global letterscore
+        
         if 100 >= self.score >= 0:
             if 100 >= self.score >= 90:
                 self.status = True
-                letterscore = "A"
+                self.letterscore = "A"
             elif 90 > self.score >= 80:
                 self.status = True
-                letterscore = "B"
+                self.letterscore = "B"
             elif 80 > self.score >= 70:
                 self.status = True
-                letterscore = "C"
+                self.letterscore = "C"
             elif 70 > self.score >= 60:
                 self.status = True
-                letterscore = "D"
+                self.letterscore = "D"
             elif 60 > self.score >= 50:
                 self.status = True
-                letterscore = "E"
+                self.letterscore = "E"
             elif 50 > self.score >= 0:
                 self.status = False
-                letterscore = "F"
+                self.letterscore = "F"
         else:
             print("Puanınızı doğru girdiğinizden emin olun!")
+        
+        if self.status: self.userstatus="Gecti" 
+        else: self.userstatus="Kaldı" 
+        
     
 
     def learnStatus(self):
@@ -66,8 +72,29 @@ try:
 
     print(df)
 
+    #excel cıktısı
+    df.to_excel("output.xlsx")
+
 except ValueError:
         print("Değerleri doğru girdiğinizden emin olun!") 
+
+
+#Kalan öğrencilerle geçen öğrencileri ayrı listelere ayırdım.
+
+failStudents = []
+successStudents= []
+for stu in studentList:
+    if stu.status:
+        successStudents.append(stu)
+    else:
+        failStudents.append(stu)
+
+suc  = pd.DataFrame(obj.__dict__ for obj in successStudents)
+fai  = pd.DataFrame(obj.__dict__ for obj in failStudents)
+
+print(suc,fai)
+
+
 
 
 
