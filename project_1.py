@@ -39,17 +39,17 @@ class student():
     """
     def learnStatus(self):
         if self.status:
-            print(f"Tebrikler {letterscore} notu ile gectiniz.")
+            print(f"Tebrikler {letterscore} notu ile geçtiniz.")
 
         else:
-            print(f"Maalesef {letterscore} notu ile kaldiniz.")
+            print(f"Maalesef {letterscore} notu ile kaldınız.")
     """
 
 studentList = []
 
 # girilecek element sayisi
 try:
-    n = int(input("Kac ogrenci gireceksiniz?: "))
+    n = int(input("Kaç öğrenci gireceksiniz?: "))
 
     # girilecek elemente göre objecti listeye ekliyoruz
     for i in range(0, n):
@@ -57,16 +57,16 @@ try:
         print(f"\n Girdi {i+1} \n")
         newName = input("İsminiz: ")
         newSurname = input("Soyisminiz: ")
-        newNumber = input("Okul numaraniz: ") 
+        newNumber = input("Okul numaranız: ") 
         # Bazi okul numaralarinda string karakterler olabiliyor. O sebeple int ibaresini kaldirdim. (A)
         # Sinav notu icin try-except yapildi. Hatasiz girilmesi adina while dongusu yapildi. (A)
         while True:    
             try:
-                newScore = int(input("Sinav notunuz: "))
+                newScore = int(input("Sınav notunuz: "))
                 if 0 <= newScore <= 100: break
-                else: print("Sinav notunuz 0 ile 100 arasinda olmalidir. Lütfen tekrar giriniz.")
+                else: print("Sınav notunuz 0 ile 100 arasında olmalodır. Lütfen tekrar giriniz.")
             except: # Except genelleştirildi. (A)
-                print("Lütfen sinav notunuzu sayisal olarak giriniz.")
+                print("Lütfen sınav notunuzu sayısal olarak giriniz.")
 
         # adding the element
         studentList.append(student(newName, newSurname, newNumber, newScore))
