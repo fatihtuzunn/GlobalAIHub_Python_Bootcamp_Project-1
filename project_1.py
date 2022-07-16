@@ -32,8 +32,8 @@ class student():
             self.status = False
             self.letterscore = "F"
         
-        if self.status==True: self.userstatus= "Gecti"
-        else: self.userstatus="Kaldi" # IF kosulu revize edildi. (A)
+        if self.status==True: self.userstatus= "Geçti"
+        else: self.userstatus="Kaldı" # IF kosulu revize edildi. (A)
 
     # Kullanilmadiği icin kapatildi. Silinebilir. Tartismaya acik. (A)
     """
@@ -75,11 +75,55 @@ try:
 
     print(df)
 
+
+    # Create a Pandas Excel writer using XlsxWriter as the engine.
+    writer = pd.ExcelWriter('output.xlsx', engine='xlsxwriter')
+
     #excel cıktısı
-    df.to_excel("output.xlsx")
+    df.to_excel(writer, sheet_name='Sheet1')
 
 
+    # Get the xlsxwriter objects from the dataframe writer object.
+    workbook  = writer.book
+    worksheet = writer.sheets['Sheet1']
+
+
+    #Format oluşturdum.
+    format1 = workbook.add_format()
+
+    format1.set_pattern(1)  
+    format1.set_bg_color('red')
+    format2 = workbook.add_format()
+
+    format2.set_pattern(1)  
+    format2.set_bg_color('#4bffff')
+
+
+
+
+    #Dataframe dimensionı çektik
+    (max_row, max_col) = df.shape
+
+    worksheet.conditional_format(1, max_col, max_row, max_col,
+                            {'type':     'cell',
+                            'criteria': '==',
+                            'value':     '"Kaldı"',
+                            'format':    format1})
+
+    worksheet.conditional_format(1, max_col, max_row, max_col,
+                            {'type':     'cell',
+                            'criteria': '==',
+                            'value':     '"Geçti"',
+                            'format':    format2})
+
+    
  
+
+
+    
+
+
+
     #Kalan öğrencilerle geçen öğrencileri ayrı listelere ayırdım.
     
     failStudents = []
@@ -102,6 +146,14 @@ try:
     print("Dersten kalan ogrencilerin listesi:")
     print(fai)
 
+    # Gecen ve kalan ogrencileri excelde ayrı  sheetlere yazdırdım.
+    suc.to_excel(writer, sheet_name='Gecenler')
+    fai.to_excel(writer, sheet_name='Kalanlar')
+
+
+
+    # Close the Pandas Excel writer and output the Excel file.
+    writer.save()
 except ValueError:
         print("Ogrenci sayiniz hatali, programdan cikiliyor...") 
 
