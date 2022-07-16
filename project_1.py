@@ -65,7 +65,7 @@ try:
                 newScore = int(input("Sinav notunuz: "))
                 if 0 <= newScore <= 100: break
                 else: print("Sinav notunuz 0 ile 100 arasinda olmalidir. Lütfen tekrar giriniz.")
-            except ValueError():
+            except: # Except genelleştirildi. (A)
                 print("Lütfen sinav notunuzu sayisal olarak giriniz.")
 
         # adding the element
